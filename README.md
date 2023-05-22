@@ -14,3 +14,6 @@ Framework - MyBatis, Spring 4
 Build Tool - Maven
 형상관리 : Git , GitHub
  </div>
+
+# DATABASE ERD
+![where_3](https://github.com/choijeongoh/whereishere/assets/119948141/97356ac9-edc5-4f94-a9ad-8ec69057862e)
