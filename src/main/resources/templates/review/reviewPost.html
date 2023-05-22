@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"
+      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css}"
+      rel="stylesheet">
+<link href="/css/reviewPost.css" rel="stylesheet">
+
+<title>후기 게시판 - 후기 작성하기</title>
+</head>
+
+<body>
+<div th:replace="fragments/bodyheader :: bodyheader"/>
+<div class="container" style="max-width: 800px">
+    <form th:action="@{/review/postPro}" method="post" enctype="multipart/form-data"  class="grid-form">
+        <div class="button">
+            <button id="createBtn" class="btn btn-outline-success" type="submit">작성</button>
+            <button type="button" class="btn btn-outline-danger" th:onclick="|location.href='@{/review/list}'|">취소</button>
+        </div>
+        <div class="reviewPost">
+            <h2>후기 작성 페이지</h2>
+        </div>
+        <div class="companyName">
+            <label for="autocompleteCompany" class="title">업체명</label>
+            <input  name="name" id= "autocompleteCompany" type="text" placeholder="업체명을 입력해주세요" aria-label="Search"/>
+            <select id="companyName">
+                <!--                        <option th:value="${review.name}"></option>-->
+            </select>
+        </div>
+        <div class="reviewPostTitle">
+            <label for="reviewPostTitle" class="imgs">제목</label>
+            <input name="reviewPostTitle" type="text" placeholder="제목을 입력해주세요." id="reviewPostTitle" >
+        </div>
+        <div class="reviewPostContent">
+            <textarea id="reviewPostContent" name="reviewPostContent" placeholder="내용을 입력해주세요" ></textarea>
+        </div>
+        <div class="reviewImg1">
+            <input type="file" name="file1" id="file1" onchange="readURL1(this)"><img id="img1">
+        </div>
+        <div class="reviewImg2">
+            <input type="file" name="file2" id="file2" onchange="readURL2(this)"><img id="img2" >
+        </div>
+    </form>
+    </div>
+</body>
+</html>
+<script>
+    const reviewPostTitle = document.querySelector('#reviewPostTitle');
+    reviewPostTitle.addEventListener('input', function() {
+        if (this.value.length > 15) {
+            this.value = this.value.slice(0, 15);
+        }
+    });
+
+    let data ="";
+    let response;
+    const SEARCH_API = "http://localhost:8080/api/search/companies?query=";
+    let search = document.querySelector("#autocompleteCompany");
+    let matchCompanyList = document.querySelector("#companyName");
+
+    search.addEventListener('keypress', ()=> {
+        if(search.value.trim() !== "") {
+            getCompanies(SEARCH_API + search.value);
+        }
+    });
+
+    search.addEventListener("change", ()=>{
+        if(search.value.trim() !== "") {
+            getCompanies(SEARCH_API + search.value);
+        }
+    });
+
+    search.addEventListener("click", ()=>{
+        if(search.value.trim() !== "") {
+            getCompanies(SEARCH_API + search.value);
+        }
+    });
+
+
+    async function getCompanies(url){
+        response = await fetch(url);
+        data = await response.json();
+        matchCompanyList.innerHTML="";
+        let selectCompany = document.querySelector("select");
+
+        selectCompany.addEventListener("click",function() {
+            document.querySelector("#autocompleteCompany").value = selectCompany.value;
+            search.value = selectCompany.value;
+            search.readOnly = true;
+            search.style.backgroundColor = "lightgray";
+
+            if (search.value === "취소 [다시입력하기]" || search.value === "") {
+                search.value = "";
+                search.readOnly = false;
+                search.style.backgroundColor = "white";
+                matchCompanyList.innerHTML = "";
+            }
+        });
+
+        for(let i = 0; i < data.companyList.length; i++) {
+            console.log(data.companyList[i].name);
+            matchCompanyList.innerHTML +=`<option> ${data.companyList[i].name} [${data.companyList[i].companyAddress}]</option>`;
+        }
+        matchCompanyList.innerHTML +=`<option>취소 [다시입력하기]</option>`;
+    }
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+
+            if(input.files[0].size >= 5000000) {
+                alert("이미지는 5MB를 넘을 수 없습니다.")
+                input.value = '';
+            } else if(input.value.slice(-3) !== "jpg" && input.value.slice(-3) !== "png" && input.value.slice(-3) !== "jpeg" ) {
+                alert("이미지는 'jpg', 'png', 'jpeg' 형식만 지원합니다.")
+                input.value = '';
+            }
+            else {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('img1').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        } else {
+            document.getElementById('img1').src = "";
+        }
+    }
+
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+
+            if(input.files[0].size >= 5000000) {
+                alert("이미지는 5MB를 넘을 수 없습니다.")
+                input.value = '';
+            } else if(input.value.slice(-3) !== "jpg" && input.value.slice(-3) !== "png" && input.value.slice(-3) !== "jpeg" ) {
+                alert("이미지는 'jpg', 'png', 'jpeg' 형식만 지원합니다.")
+                input.value = '';
+            }
+            else {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('img2').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        } else {
+            document.getElementById('img2').src = "";
+        }
+    }
+
+    // 사진이 입력되지 않으면 진행할 수 없는 메서드
+    let createBtn = document.querySelector("#createBtn");
+    let allInput = document.querySelectorAll("input");
+    createBtn.addEventListener("click",function() {
+
+        if(data.companyList.filter(n => n.name + " [" + n.companyAddress + "]" === search.value).length === 0) {
+            alert("업체명은 자동완성 기능을 사용하세요")
+            event.preventDefault();
+            return;
+        }
+
+
+
+        for (let i = 0 ; i< allInput.length; i++) {
+            if (allInput[i].value === '') {
+                alert("모든 항목은 필수로 입력해주세요.")
+                event.preventDefault();
+                return;
+            }
+        }
+    });
+
+
+
+</script>
