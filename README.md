@@ -6,10 +6,10 @@ whereishere은 1개월 동안 준비한 팀프로젝트입니다.
  ﻿가입한 업체들의 정보를 확인하고 이벤트 및 회원들의 평가를 공유할 수 있는 웹 사이트이다.
   
 # 개발 환경
-<div>Programming Language - Java</div>
+<div>Programming Language - Java, JavaScript</div>
 <div>IDE - INTELLIJ</div>
 <div>DB - MYSQL</div>
-<div>Framework - Spring 4</div>
+<div>Framework - Spring</div>
 <div>Build Tool - Gradle</div>
 <div>형상관리 : Git , GitHub</div>
 
