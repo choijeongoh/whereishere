@@ -18,9 +18,11 @@ whereishere은 1개월 동안 준비한 팀프로젝트입니다.
 ![where_3](https://github.com/choijeongoh/whereishere/assets/119948141/97356ac9-edc5-4f94-a9ad-8ec69057862e)
 
 # 역할
-<div>이벤트 게시판</div>
+<div>이벤트 게시판 페이지</div>
 <div>CRUD 구현</div>
 <div>페이징 처리</div>
+<div>검색기능</div>
+<div>프론트, 백엔드 개발</div>
 
 # 기능구현
 ![ima](https://github.com/choijeongoh/whereishere/assets/119948141/7744b3aa-5b91-4368-83b7-01fde1999d52)
