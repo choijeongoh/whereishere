@@ -27,3 +27,4 @@ whereishere은 1개월 동안 준비한 팀프로젝트입니다.
 
 # 기능구현
 ![ima](https://github.com/choijeongoh/whereishere/assets/119948141/7744b3aa-5b91-4368-83b7-01fde1999d52)
+![image](https://github.com/choijeongoh/whereishere/assets/119948141/65ee81aa-10a0-4d79-bde7-50b77057ff54)
