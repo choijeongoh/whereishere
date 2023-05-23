@@ -11,7 +11,7 @@ whereishere은 1개월 동안 준비한 팀프로젝트입니다.
 <div>DB - MYSQL</div>
 <div>Framework - Spring</div>
 <div>Build Tool - Gradle</div>
-<div>형상관리 : Git , GitHub</div>
+<div>형상관리 : GitHub</div>
 
 
 # DATABASE ERD
