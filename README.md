@@ -18,5 +18,4 @@ whereishere은 1개월 동안 준비한 팀프로젝트입니다.
 ![where_3](https://github.com/choijeongoh/whereishere/assets/119948141/97356ac9-edc5-4f94-a9ad-8ec69057862e)
 
 # 기능구현
-<h3>검색 및 페이징 처리<h3>
-<image>![ima](https://github.com/choijeongoh/whereishere/assets/119948141/7744b3aa-5b91-4368-83b7-01fde1999d52)</image>
+![ima](https://github.com/choijeongoh/whereishere/assets/119948141/7744b3aa-5b91-4368-83b7-01fde1999d52)
